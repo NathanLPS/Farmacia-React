@@ -1,24 +1,25 @@
-import { ChangeEvent, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import Categoria from "../../../models/Categoria";
-import { RotatingLines } from "react-loader-spinner";
-import { atualizar, buscar, cadastrar } from "../../../services/Service";
+import { useEffect, useState } from 'react'
+import { RotatingLines } from 'react-loader-spinner';
+import { buscar, deletar } from '../../../services/Service';
+import { useNavigate, useParams } from 'react-router-dom';
+import Categoria from '../../../models/Categoria';
 
-function FormCategoria() {
-
+{/** Trata da função de Deletar */}
+function DeletarCategoria() {
     const navigate = useNavigate();
 
     const [categoria, setCategoria] = useState<Categoria>({} as Categoria)
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
-    
+    {/** useParams é um Hook do React Router que permite acessar parâmatros passados na URL */}
     const { id } = useParams<{ id: string }>();
 
     async function buscarPorId(id: string) {
         try {
             await buscar(`/categorias/${id}`, setCategoria)
         } catch (error: any) {
-            
+            alert("Erro ao buscar pela Categoria")
+            console.log(error);
         }
     }
 
@@ -28,37 +29,19 @@ function FormCategoria() {
         }
     }, [id])
 
-    function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
-        setCategoria({
-            ...categoria,
-            [e.target.name]: e.target.value
-        })
-    }
-
     function retornar() {
-        navigate("/categorias")
+        navigate("/")
     }
 
-    async function gerarNovaCategoria(e: ChangeEvent<HTMLFormElement>) {
-        e.preventDefault()
+    async function deletarCategoria() {
+
         setIsLoading(true)
 
-        if (id !== undefined) {
-            try {
-                await atualizar(`/categorias`, categoria, setCategoria)
-                alert('A categoria foi atualizada com sucesso!')
-            } catch (error: any) {
-                alert('Erro ao atualizar a categoria.')
-            }
-        } else {
-            try {
-                await cadastrar(`/categorias`, categoria, setCategoria)
-                alert('A categoria foi cadastrada com sucesso!')
-            } catch (error: any) {
-                    alert('Erro ao cadastrar a categoria.')
-                
-
-            }
+        try {
+            await deletar(`/categorias/${id}`)
+            alert('A categoria foi excluída com sucesso!')
+        } catch (error: any) {
+            alert('Erro ao excluir a categoria.')
         }
 
         setIsLoading(false)
@@ -66,29 +49,29 @@ function FormCategoria() {
     }
 
     return (
-        <div className="container flex flex-col items-center justify-center mx-auto">
-            <h1 className="text-4xl text-center my-8  font-bold">
-                {id === undefined ? 'Cadastrar Categoria' : 'Editar Categoria'}
-            </h1>
+        
+        <div className='container w-1/3 mx-auto'>
+            <h1 className='text-4xl text-center my-4'>Deletar categoria</h1>
+            <p className='text-center font-semibold mb-4'>
+                Você tem certeza de que deseja apagar a categoria a seguir?</p>
 
-            <form className="w-1/2 flex flex-col gap-4" onSubmit={gerarNovaCategoria}>
-                <div className="flex flex-col gap-2">
-                    <label htmlFor="tipo" className=" font-bold">Tipo da Categoria</label>
-                    <input
-                        type="text"
-                        placeholder="Descreva aqui sua categoria"
-                        name='nome'
-                        className="border-2 border-slate-400 rounded p-2"
-                        value={categoria.nome}
-                        onChange={(e: ChangeEvent<HTMLInputElement>) => atualizarEstado(e)}
-                    />
-                </div>
-                <button
-                    className="rounded font-bold bg-slate-400 hover:bg-slate-600
-                     w-1/2 py-2 mx-auto flex justify-center"
-                    type="submit">
-
-                    {isLoading ?
+            <div className='border flex flex-col rounded-2xl overflow-hidden justify-between'>
+                <header
+                    className='py-2 px-6 bg-cyan-400 text-white font-bold text-2xl'>
+                    Categoria
+                </header>
+                <p className='p-8 text-3xl bg-slate-200 h-full'>{categoria.nome}</p>
+                <div className="flex">
+                    <button
+                        className='text-slate-100 bg-red-400 hover:bg-red-600 w-full py-2'
+                        onClick={retornar}>
+                        Não
+                    </button>
+                    <button
+                        className='w-full text-slate-100 bg-green-400 
+                                   hover:bg-green-800 flex items-center justify-center'
+                                   onClick={deletarCategoria}>
+                         {isLoading ?
                         <RotatingLines
                             strokeColor="white"
                             strokeWidth="5"
@@ -96,14 +79,14 @@ function FormCategoria() {
                             width="24"
                             visible={true}
                         /> :
-                        <span>{id === undefined ? 'Cadastrar' : 'Atualizar'}</span>
+                        <span>Sim</span>
                         
                     }
-                    
-                </button>
-            </form>
+                    </button>
+                </div>
+            </div>
         </div>
-    );
+    )
 }
 
-export default FormCategoria;
+export default DeletarCategoria
