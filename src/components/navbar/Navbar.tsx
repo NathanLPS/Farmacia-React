@@ -9,9 +9,8 @@ function Navbar() {
                 <div className="container flex justify-between text-lg">
                     <Link to='/home' className="text-2xl font-bold">Far+</Link>
                     <div className='flex gap-4'>
-                        <div className='hover:underline'>Produtos</div>
-                        <div className='hover:underline'>Categoria</div>
-                        <div className='hover:underline'>Cadastrar categoria</div>
+                    <Link to='/categorias' className="hover:text-green-300 font-bold">Categorias</Link>
+                    <Link to='/cadastrarCategoria' className="hover:text-green-300 font-bold">Cadastrar Categoria</Link>
                     </div>
                 </div>
             </div>

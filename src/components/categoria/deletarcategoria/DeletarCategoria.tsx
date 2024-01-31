@@ -69,7 +69,7 @@ function DeletarCategoria() {
                     </button>
                     <button
                         className='w-full text-slate-100 bg-green-400 
-                                   hover:bg-green-800 flex items-center justify-center'
+                                   hover:bg-green-700 flex items-center justify-center'
                                    onClick={deletarCategoria}>
                          {isLoading ?
                         <RotatingLines

@@ -32,17 +32,6 @@ function Home() {
                             justify-around 
                             gap-4
                             ">
-                            <div className="
-                                rounded 
-                                text-black 
-                                border-white 
-                                border-solid 
-                                border-2 
-                                px-4 
-                                py-2
-                                ">
-                                Novo produto
-                            </div>
                         </div>
                     </div>
 

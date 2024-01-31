@@ -3,8 +3,8 @@ import './App.css';
 import Footer from './components/footer/Footer';
 import Navbar from './components/navbar/Navbar';
 import Home from './pages/home/Home';
+import FormCategoria from "./components/categoria/formcategoria/FormCategoria"
 import ListaCategorias from './components/categoria/listacategorias/ListaCategorias';
-import FormCategoria from './components/categoria/deletarcategoria/DeletarCategoria';
 import DeletarCategoria from './components/categoria/deletarcategoria/DeletarCategoria';
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/categorias" element={<ListaCategorias />} />
-            <Route path="/cadastroCategoria" element={<FormCategoria />} />
+            <Route path="/cadastrarCategoria" element={<FormCategoria />} />
             <Route path="/editarCategoria/:id" element={<FormCategoria />} />
             <Route path="/deletarCategoria/:id" element={<DeletarCategoria />} />
           </Routes>

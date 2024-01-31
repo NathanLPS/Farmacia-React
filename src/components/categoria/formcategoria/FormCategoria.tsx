@@ -73,7 +73,7 @@ function FormCategoria() {
 
             <form className="w-1/2 flex flex-col gap-4" onSubmit={gerarNovaCategoria}>
                 <div className="flex flex-col gap-2">
-                    <label htmlFor="tipo" className=" font-bold">Nome da Categoria</label>
+                    <label htmlFor="tipo" className=" font-bold">Tipo da Categoria</label>
                     <input
                         type="text"
                         placeholder="Descreva aqui sua categoria"
